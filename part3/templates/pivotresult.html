@@ -1,0 +1,52 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} Pivot Table Viewer {% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+{% endblock %}
+
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+
+  <div class="row results-header-row">
+    <div class="col-md-2 text-center">
+      <a href="/pivotbuilder" class="btn btn-default btn-block"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+    </div>
+    <div class="col-md-10">
+      <div class="row text-center">
+        <h3>Currently Viewing {{ aggr_func }} of {{ aggr_attribute }} by {{ row_attribute }} and {{ col_attribute }}  </h3>
+      </div>
+      <div class="row">
+        <div class="col-md-1 table-min">
+          MIN ({{ table_min }})
+        </div>
+        <div class="col-md-1 table-10">.</div>
+        <div class="col-md-1 table-20">.</div>
+        <div class="col-md-1 table-30">.</div>
+        <div class="col-md-1 table-40">.</div>
+        <div class="col-md-1 table-50">.</div>
+        <div class="col-md-1 table-60">.</div>
+        <div class="col-md-1 table-70">.</div>
+        <div class="col-md-1 table-80">.</div>
+        <div class="col-md-1 table-90">.</div>
+        <div class="col-md-1 table-100">.</div>
+        <div class="col-md-1 table-max">
+          MAX ({{ table_max }})
+        </div>
+      </div>
+      <div class="row text-center">
+        <h3>Data Table Used: {{ table }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  {{ pivot_table_html | safe }}
+  </div>
+</div>
+
+{% endblock %}
+
+     
+ 

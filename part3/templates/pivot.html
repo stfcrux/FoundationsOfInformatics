@@ -1,0 +1,180 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} View Table {% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+
+{% include "navigation.html" %}
+<div class="row text-center">
+  <h1>Pivot Table Builder</h1>
+</div>
+
+
+<form action="http://localhost:5000/createpivot" method="POST">
+<div class="row text-center">
+  <h3>Select Table: </h3>
+  <select name="selectTable" id="selectTable" onchange="onTableChanged()">
+    <option value="0">Select a table...</option>
+    <option value="airport">Airport</option>
+    <option value="airline">Airline</option>
+    <option value="route">Route</option>
+  </select>
+</div>
+<div class="row">
+    <div class="col-md-12 text-center">
+      	<div class="col-md-6 form-group">
+          <div class="row form-group">
+            <h3>Column</h3>
+          </div>
+          <div class="row form-group">
+          Attribute:
+          <select name="col_attribute" id="col_attribute">
+              <option value="0">Select a table first</option>
+          </select>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <div class="row form-group">
+            <h3>Row</h3>
+          </div>
+          <div class="row form-group">
+          Attribute:
+          <select name="row_attribute" id="row_attribute">
+              <option value="0">Select a table first</option>
+          </select>
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <div class="row form-group">
+            <h3>Aggregation</h3>
+          </div>
+          <div class="row form-group">
+          Type:
+          <select name="aggr_type" id="aggr_type">
+              <option value="count">Count</option>
+              <option value="unique_count">Unique Count</option>
+              <option value="sum">Sum</option>
+              <option value="avg">Average</option>
+              <option value="min">Min</option>  
+              <option value="max">Max</option>
+          </select>
+          </div>
+          <div class="row form-group">
+          Attribute:
+          <select name="aggr_attribute" id="aggr_attribute">
+            <option value="0">Select a table first</option>
+          </select>
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <div class="row form-group">
+            <h3>Attribute Filtering</h3>
+          </div>
+          
+          <div class="row form-group">
+            <label>
+              <input type="checkbox" name="filteron" id="filteron">
+              Enable Filtering
+            </label>
+          </div>
+
+          <div class="row form-group">
+            Filter Attribute:
+            <select name="filter_attribute" id="filter_attribute">
+                <option value="0">Select a table first</option>
+            </select>
+          </div>
+
+          <div class="row form-group">
+            Filter Operation:
+            <select name="filter_type" id="filter_type">
+                <option value="equal">==</option>
+                <option value="notEqual">!=</option>
+                <option value="less"><</option>
+                <option value="more">></option>
+                <option value="lessEqual"><=</option>
+                <option value="moreEqual">>=</option>
+            </select>
+          </div>
+
+          <div class="row form-group">
+            Filter Value: <input type="text" name="filterval" id="filterval">
+          </div>
+
+        </div>
+
+        <div class="col-md-2 col-md-offset-5 form-group">
+          <div class="row">
+            <input type="submit" class="btn btn-secondary btn-block" value="Generate Pivot Table" />
+          </div>
+          {% if iserror %}
+          <div class="row">
+            <div class="alert alert-danger" role="alert">
+              <strong>Oops!</strong> {{ error }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+      
+    </div>
+  </div>
+  
+</div>
+</form>
+
+<!-- Include JQuery -->
+<script type=text/javascript src="{{url_for('static', filename='jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript">
+// set page attributes 
+function setAttributes( attributes ) {
+  // Clear attributes
+  $("#row_attribute").empty();
+  $("#col_attribute").empty();
+  $("#filter_attribute").empty();
+  $("#aggr_attribute").empty();
+
+  // Repopulate attribute lists
+  var attr_len = attributes.length;
+  var i = 0;
+  for ( i = 0; i < attr_len; i += 1 ) {
+    // append option
+    $("#row_attribute").append(new Option(attributes[i], attributes[i]));
+    $("#col_attribute").append(new Option(attributes[i], attributes[i]));
+    $("#filter_attribute").append(new Option(attributes[i], attributes[i]));
+    $("#aggr_attribute").append(new Option(attributes[i], attributes[i]));
+  }
+
+}
+
+// JQuery to get attributes
+$(function() {
+    $('#selectTable').bind('change', function() {
+      // Check for valid selection 
+      if ($('#selectTable').val() == "0") {
+        return false;
+      }
+
+      // Fetch attributes for table 
+      $.getJSON('/fetchattributes', {
+        table: $('#selectTable').val()
+      }, function(data) {
+        if (data.error) {
+          alert('Error in JQuery request, unable to get attributes.');
+        } else {
+          setAttributes(data.attributes);
+        }
+      });
+      return false;
+    });
+});
+</script>
+{% endblock %}

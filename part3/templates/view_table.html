@@ -1,0 +1,54 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} View Table {% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+  {% include "navigation.html" %}
+
+  <div class="row text-center form-group">
+    <h1>View Table Data</h1>
+  </div>
+  <div class="row form-group"> </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <form action="http://localhost:5000/view_table" method="POST">
+        <div class="col-md-6 form-group">
+        Table: 
+          <select name="table_name">
+              <option value="airport">Airport</option>
+              <option value="airline">Airline</option>
+              <option value="route">Route</option>
+          </select>
+        </div>
+        
+        <div class="col-md-6 form-group">
+          Results Per Page: 
+           <select name="results_count">
+              <option value="10">10</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="500">500</option>
+          </select>
+        </div>
+
+        <input type="hidden" name="page_no" value="0">
+        
+        <div class="row form-group">
+          <div  class="col-md-4 col-md-offset-4 form-group">
+            <button type="submit" value="submit" class="btn btn-default btn-block">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</div>
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} View Table {% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+
+{% include "navigation.html" %}
+
+  <div class="row">
+    <div  class="col-md-4 col-md-offset-2">
+        <p id="description">This heat map shows how many airports are there in each country with the countries colored with darker colours of red based on how many airports there are. From the map we can clearly see that North America has the most number of airports even though its size is rather small. More importantly, from the heat map we can see the general large disparity between the middle of the map and the other two sides. This is rather interesting since one would expect the prevelence of airports in the middle grounds as a common trading and stopping ground, however this is not the case at all. We can also see that generally the capital or more populated countries have the bulk of the airports in each region. For example, in the EU region, the UK, France, Germany and Russia have relatively more airports than other countries. Similarly, South Africa has the most airports in Africa.</p>
+    </div>
+    <div id="number_of_airport_vs_country" style="width: 900px; height: 500px;" class="col-md-6">
+        observation pic
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <p id ="description">We were looking to see if the countries with the highest populations would have more airports.From the results we can clearly see some sort of correlation between the number of airports and population where the country with higher population has more airports. However, we can also concur that, how developed the country is plays a significant role in how many airports there are in each country. For example, the first two countries in the graph, China and India, although both countries are extremely large and have a huge population, they have very little airports.  Meaning their need for demand of airports is rather low compared to their population, since perhaps only the people in the richer states can afford it. Whereas on the other hand, Countries like USA have a lot more airports for their size, meaning there may be multiple airports in each state and travelling by air domestically is very common.</p>
+    </div>
+    <div class="col-md-6" id="chart1" style="width: 900px; height: 500px;" >
+       observation pic 2
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <p id="description">We were looking to see if the countries with the highest number airlines have some correlation to the number of airports for these particular countries. Just from looking at the countries which have the highest number of airlines, it is clear to say they are all rather developed countries, proving that  developed countries generally have more expense and business present in their flight industry. On another note, it also seems that all these countries are western, meaning a lot of them share a common ground in their languages, which perhaps implies more business and airlines to be present in their countries.
+The result shows that there isn't much correlation between these two, except for the fact that there are generally more airports than airlines for the countries. However that fact will further support that there is no correlation between their two values, since in reality generally only a few airlines will be popular and more renowned compared to others in each country.
+</p>
+    </div>
+    <div id="chart2"  class="col-md-6" style="width: 900px; height: 500px;" >
+    	observation pic 2
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <p id="description">From the pie chart we clearly see that although United States is not the largest country, it still is the most popular destination amongst every country. In fact, the population of United States is not extremely large compared to other countries around the globe, especially compared to India and China, but it still reigns supreme in the fact that it has the most traffic in terms of destinations to.</p>
+
+    </div>
+    <div class="col-md-6" id="chart4" style="width: 900px; height: 500px;" >
+    	observation pic 2
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <p id="description"> We were looking to see the demand for travel between Austrailia and other countries. As can be seen from the bar chart, the most significant thing is that Australia has a very developed domestic flight network. For International flights, not surprisingly, New Zealand is a very popular destination from Austrailia, meaning more Airports service routes to there. An extremely interesting fact is that Singapore is also at the top of the list, this is mainly because Singapore only has three airports and is extremely tiny, meaning almost all airports in Austrailia have a route to each of thier airports, also showing the significantly good ties it has with Singapore. Similarly Australia has a rather large demand for different routes to countries such as USA,Indonesia and China.</p>
+    </div>
+    <div class="col-md-6" id="chart5" style="width: 900px; height: 500px;" >
+    	observation pic 2
+    </div>
+  </div>
+  
+</div>
+    <script type='text/javascript' src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart','geochart','bar','scatter']});
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    google.charts.setOnLoadCallback(drawGraph4);
+    google.charts.setOnLoadCallback(drawGraph5);
+    google.charts.setOnLoadCallback(drawGraph1);
+    google.charts.setOnLoadCallback(drawGraph2);
+
+   function drawRegionsMap() {
+     var data = google.visualization.arrayToDataTable([
+['Country', 'number of airport'],
+          ["United States",1435],["Canada",417],["Australia",296],["Germany",241],["Russia",238],["Brazil",234],["France",214],["China",180],["United Kingdom",162],["India",125],["Indonesia",125],["Japan",119],["South Africa",96],["Argentina",94],["Mexico",83],["Italy",82],["Iran",81],["Sweden",77],["Colombia",74],["Turkey",72],["Philippines",64],["Spain",62],["Norway",61],["Venezuela",57],["Greece",55],["New Zealand",52],["Pakistan",52],["Finland",51],["Thailand",50],["Chile",44],["Saudi Arabia",44],["Algeria",43],["Madagascar",43],["Peru",42],["Switzerland",41],["Malaysia",40],["Poland",38],["Ukraine",36],["Ecuador",35],["Kenya",35],["Cuba",32],["Nepal",32],["Portugal",32],["Costa Rica",30],["Ethiopia",29],["Vanuatu",29],["Denmark",27],["Netherlands",26],["Papua New Guinea",26],["Angola",24],["Belgium",24],["Czech Republic",24],["Egypt",24],["Kazakhstan",24],["Taiwan",24],["Vietnam",24],["Bolivia",23],["Solomon Islands",23],["Tanzania",23],["Morocco",22],["Nigeria",22],["Afghanistan",20],["Iceland",20],["Austria",19],["Mozambique",19],["Romania",19],["Kiribati",18],["Sudan",18],["Fiji",17],["Ireland",17],["Libya",17],["United Arab Emirates",17],["Iraq",16],["Israel",16],["Namibia",16],["Suriname",16],["Zimbabwe",15],["Croatia",14],["Botswana",13],["Dominican Republic",13],["Gabon",13],["Guyana",13],["Mongolia",13],["Panama",13],["Uzbekistan",13],["Honduras",12],["Hungary",12],["Laos",12],["Nicaragua",12],["Sri Lanka",12],["Tunisia",12],["Zambia",12],["Bulgaria",11],["Maldives",11],["Mauritania",11],["Uruguay",11],["Yemen",11],["Bangladesh",10],["Belarus",10],["Cameroon",10],["Guatemala",10],["Uganda",10],["Cambodia",9],["Estonia",9],["Lithuania",9],["Senegal",9],["Malawi",8],["Mali",8],["Marshall Islands",8],["Paraguay",8],["Seychelles",8],["Slovakia",8],["Somalia",8],["Azerbaijan",7],["Cape Verde",7],["Cote d'Ivoire",7],["Niger",7],["Sierra Leone",7],["Chad",6],["Ghana",6],["Guinea",6],["Haiti",6],["Jamaica",6],["Latvia",6],["Oman",6],["Singapore",6],["Syria",6],["Tonga",6],["Albania",5],["Armenia",5],["Georgia",5],["Jordan",5],["Kyrgyzstan",5],["Moldova",5],["Saint Vincent and the Grenadines",5],["Serbia",5],["Slovenia",5],["Turkmenistan",5],["Bosnia and Herzegovina",4],["Comoros",4],["Cyprus",4],["Tajikistan",4],["Bhutan",3],["Djibouti",3],["Eritrea",3],["Guinea-Bissau",3],["Kuwait",3],["Lebanon",3],["Lesotho",3],["Liberia",3],["Rwanda",3],["Samoa",3],["Western Sahara",3],["Antigua and Barbuda",2],["Bahrain",2],["Belize",2],["Brunei",2],["Burkina Faso",2],["Central African Republic",2],["Dominica",2],["El Salvador",2],["Equatorial Guinea",2],["Macedonia",2],["Malta",2],["Mauritius",2],["Montenegro",2],["Qatar",2],["Saint Kitts and Nevis",2],["Saint Lucia",2],["Sao Tome and Principe",2],["South Sudan",2],["Togo",2],["Trinidad and Tobago",2],["Barbados",1],["Benin",1],["Burundi",1],["Gambia",1],["Grenada",1],["Luxembourg",1],["Nauru",1],["Palau",1],["Swaziland",1],["Tuvalu",1]
+
+     ]);
+
+    var options = {
+        title: 'Heat map of number of airports around the world',
+        colorAxis: {colors: ['white', 'red']}
+    };
+     var chart = new google.visualization.GeoChart(document.getElementById('number_of_airport_vs_country'));
+
+     chart.draw(data, options);
+   }
+
+
+
+
+      function drawGraph1() {
+
+        var chartDiv = document.getElementById('chart1');
+
+        var data = new google.visualization.arrayToDataTable([
+        ['Country','number of Airport','Population'],
+          ['China',180,1336718015],['India',125,1189172906],['United States',1435,313232044],
+['Indonesia',125,245613043],['Brazil',234,203429773],['Pakistan',52,187342721],
+['Bangladesh',10,158570535],['Nigeria',22,155215573],['Russia',238,138739892],
+['Japan',119,126475664],
+['Mexico',83,113724226],
+['Philippines',64,101833938],
+['Ethiopia',29,90873739],
+['Vietnam',24,90549390],
+['Egypt',24,82079636],
+['Germany',241,81471834],
+['Turkey',72,78785548],
+        ]);
+
+        var materialOptions = {
+          chart: {
+            title: 'Number of Airports VS Population'
+          },
+
+          series: {
+            0: {axis: 'number of Airport'},
+            1: {axis: 'Population'}
+          },
+          axes: {
+            y: {
+              'number of Airport': {label: 'number of Airport'},
+              'Population': {label: 'Population'}
+            }
+          }
+        };
+
+
+
+          var materialChart = new google.charts.Scatter(chartDiv);
+          materialChart.draw(data, google.charts.Scatter.convertOptions(materialOptions));
+
+
+    }
+
+function drawGraph2(){
+ var chartDiv = document.getElementById('chart2');
+
+        var data = new google.visualization.arrayToDataTable([
+        ['Country','Number of Airline','Number of Airport'],
+['United States',1099,1435],
+['Mexico',440,83],
+['United Kingdom',415,162],
+['Canada',323,417],
+['Russia',238,238],
+['Spain',168,62],
+['Germany',135,241],
+['France',123,214],
+['Australia',94,296],
+['Italy',93,82],
+['South Africa',91,96]
+        ]);
+
+        var materialOptions = {
+          chart: {
+            title: 'Number of Airports VS Number of Airlines'
+          },
+
+          series: {
+            0: {axis: 'number of Airports'},
+            1: {axis: 'number of Airlines'}
+          },
+          axes: {
+            y: {
+              'number of Airports': {label: 'number of Airports'},
+              'number of Airlines': {label: 'number of Airlines'}
+            }
+          }
+        };
+
+
+
+          var materialChart = new google.charts.Scatter(chartDiv);
+          materialChart.draw(data, google.charts.Scatter.convertOptions(materialOptions));
+
+}
+
+
+
+   function drawGraph4(){
+        var data = google.visualization.arrayToDataTable([
+          ['Country','number of routes to'],
+['United States',13038],
+['China',8121],
+['United Kingdom',2635],
+['Spain',2531],
+['Germany',2336],
+['France',1922],
+['Russia',1815],
+['Italy',1779],
+['Canada',1530],
+['Brazil',1386],
+['India',1380],
+['Japan',1290],
+['Australia',1096],
+['Mexico',1052],
+['Turkey',979],
+['Indonesia',831],
+['Greece',814],
+['United Arab Emirates',731],
+['Norway',645],
+['others',20242]
+        ]);
+        var options = {
+                title: 'number of destinations to each country'
+        }
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart4'));
+        chart.draw(data,options);
+   }
+
+   function drawGraph5(){
+       var data = google.visualization.arrayToDataTable([
+        ['Country','number of routes depart from AU'],
+['Australia',776],
+['New Zealand',77],
+['Singapore',42],
+['United States',26],
+['Indonesia',26],
+['China',17],
+['Hong Kong',16],
+['United Arab Emirates',16],
+['Japan',15],
+['Thailand',14],
+['Malaysia',14],
+['Fiji',11],
+['Papua New Guinea',9],
+['Vanuatu',7],
+['South Korea',5],
+['Philippines',4],
+['New Caledonia',4],
+['South Africa',4],
+['Vietnam',4]
+      ]);
+
+      var options = {
+          chart: {
+            title: 'number of routes departing from AU',
+          },
+        bars: 'horizontal',
+        axes: {
+          hAxis: {
+          title: 'Number of Routes',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Country'
+        }
+        }
+      };
+      var materialChart = new google.charts.Bar(document.getElementById('chart5'));
+      materialChart.draw(data, options);
+   }
+
+  </script>
+
+{% endblock %}
